@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   botaoFinalizar: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#006400',
     padding: 10,
     alignItems: 'center',
     borderRadius: 5,

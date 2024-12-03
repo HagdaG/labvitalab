@@ -29,6 +29,14 @@ export default function Vacinas({ navigation }) {
           <Text style={styles.buttonText}>Dúvidas</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Botão de voltar */}
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}
+      >
+        <Text style={styles.buttonText}>Voltar</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -51,7 +59,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#006400',
     padding: 15,
     width: '80%',
     marginBottom: 10,
@@ -62,4 +70,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
+  backButton: {
+    backgroundColor: '#006400',
+    padding: 10,
+    borderRadius: 10,
+    position: 'absolute',
+    bottom: 80,  // Para ficar acima do rodapé
+    right: 20,
+  }
 });

@@ -55,7 +55,7 @@ export default function DuvidasVacinas({ navigation }) {
       {/* Botões */}
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: '#007bff' }]}
+          style={[styles.button, { backgroundColor: '#006400' }]}
           onPress={() => navigation.goBack()}
         >
           <Text style={styles.buttonText}>Voltar</Text>

@@ -4,8 +4,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import TelaLogin from "./src/screens/TelaLogin";
 import TelaCriarUsuario from "./src/screens/TelaCriarUsuario";
-import TelaCadastrarVaga from "./src/screens/TelaCadastrarVaga";
-import TelaEditarVaga from "./src/screens/TelaEditarVaga";
 import TelaSobre from "./src/screens/TelaSobre";
 import TelaConta from "./src/screens/TelaConta";
 import TelaPrincipal from "./src/screens/TelaPrincipal";
@@ -42,18 +40,6 @@ export default function App() {
           name="TelaCriarUsuario"
           component={TelaCriarUsuario}
           options={{ title: "Cadastro de Usuário" }}
-        />
-
-        <Stack.Screen
-          name="TelaCadastrarVaga"
-          component={TelaCadastrarVaga}
-          options={{ title: "Cadastro de Vaga" }}
-        />
-
-        <Stack.Screen
-          name="TelaEditarVaga"
-          component={TelaEditarVaga}
-          options={{ title: "Editar Veículo" }}
         />
 
         <Stack.Screen
