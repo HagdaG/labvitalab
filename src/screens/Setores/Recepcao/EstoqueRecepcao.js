@@ -96,7 +96,10 @@ export default function EstoqueRecepcao({ navigation }) {
         keyboardType="numeric"
         onChangeText={setNovaQuantidade}
       />
-      <Button title="Adicionar Produto" onPress={adicionarProduto} />
+
+      <TouchableOpacity style={styles.finalizarButton} onPress={adicionarProduto}>
+          <Text style={styles.finalizarButtonText}>Adicionar Produto</Text>
+        </TouchableOpacity>
 
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.voltarButton} onPress={() => navigation.goBack()}>

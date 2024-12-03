@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert } from 'react-native'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import jsPDF from 'jspdf';
 
 export default function PedidoRecepcao({ navigation }) {
   const [pedidos, setPedidos] = useState([]);
@@ -47,6 +46,37 @@ export default function PedidoRecepcao({ navigation }) {
     }
   };
 
+  const gerarPDF = async () => {
+    const html = `
+      <html>
+        <body>
+          <h1>Estoque Recepção</h1>
+          <table border="1" cellpadding="10">
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${produtos
+                .map(
+                  (produto) => `
+                    <tr>
+                      <td>${produto.nome}</td>
+                      <td>${produto.quantidade}</td>
+                    </tr>
+                  `
+                )
+                .join('')}
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `;
+    await Print.printAsync({ html });
+  };
+
   const removerPedido = async (id) => {
     const listaAtualizada = pedidos.filter((pedido) => pedido.id !== id);
     setPedidos(listaAtualizada);
@@ -59,19 +89,6 @@ export default function PedidoRecepcao({ navigation }) {
     }
   };
 
-  const gerarPDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(18);
-    doc.text('Lista de Pedidos', 10, 10);
-    doc.setFontSize(12);
-
-    pedidos.forEach((pedido, index) => {
-      doc.text(`${index + 1}. ${pedido.nome} - Quantidade: ${pedido.quantidade}`, 10, 20 + index * 10);
-    });
-
-    doc.save('lista_pedidos.pdf');
-    Alert.alert('PDF Gerado', 'O arquivo PDF foi gerado com sucesso!');
-  };
 
   return (
     <View style={styles.container}>
