@@ -13,7 +13,7 @@ import TelaInformacoes from "./src/screens/TelaInformacoes";
 import Recepcao from "./src/screens/Setores/Recepcao";
 import EstoqueRecepcao from "./src/screens/Setores/Recepcao/EstoqueRecepcao";
 import PedidosRecepcao from "./src/screens/Setores/Recepcao/PedidosRecepcao";
-import Vacinas from "./src/screens/Setores/Vacina/Vacinas";
+import Vacina from "./src/screens/Setores/Vacina";
 import DuvidasVacinas from "./src/screens/Setores/Vacina/DuvidasVacinas";
 import PedidosVacinas from "./src/screens/Setores/Vacina/PedidosVacinas";
 import EstoqueVacinas from "./src/screens/Setores/Vacina/EstoqueVacinas";
@@ -87,10 +87,11 @@ export default function App() {
         />
 
         <Stack.Screen
-          name="Vacinas"
-          component={Vacinas}
-          options={{ title: "Vacinas" }}
+          name="Vacina" 
+          component={Vacina}
+          options={{ title: "Vacinas", headerShown: false }}
         />
+
 
        <Stack.Screen
           name="DuvidasVacinas"

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert } from 'react-native'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as Print from 'expo-print';
+import * as Sharing from 'expo-sharing';
+
 
 export default function PedidoRecepcao({ navigation }) {
   const [pedidos, setPedidos] = useState([]);
@@ -46,37 +49,6 @@ export default function PedidoRecepcao({ navigation }) {
     }
   };
 
-  const gerarPDF = async () => {
-    const html = `
-      <html>
-        <body>
-          <h1>Estoque Recepção</h1>
-          <table border="1" cellpadding="10">
-            <thead>
-              <tr>
-                <th>Produto</th>
-                <th>Quantidade</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${produtos
-                .map(
-                  (produto) => `
-                    <tr>
-                      <td>${produto.nome}</td>
-                      <td>${produto.quantidade}</td>
-                    </tr>
-                  `
-                )
-                .join('')}
-            </tbody>
-          </table>
-        </body>
-      </html>
-    `;
-    await Print.printAsync({ html });
-  };
-
   const removerPedido = async (id) => {
     const listaAtualizada = pedidos.filter((pedido) => pedido.id !== id);
     setPedidos(listaAtualizada);
@@ -89,6 +61,50 @@ export default function PedidoRecepcao({ navigation }) {
     }
   };
 
+  const gerarPDF = async () => {
+    try {
+      const htmlContent = `
+        <html>
+          <head>
+            <style>
+              body { font-family: Arial, sans-serif; padding: 20px; }
+              h1 { text-align: center; }
+              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+              th, td { border: 1px solid #ddd; text-align: left; padding: 8px; }
+              th { background-color: #f2f2f2; }
+            </style>
+          </head>
+          <body>
+            <h1>Lista de Pedidos</h1>
+            <table>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Quantidade</th>
+              </tr>
+              ${pedidos
+                .map(
+                  (pedido) => `
+                    <tr>
+                      <td>${pedido.id}</td>
+                      <td>${pedido.nome}</td>
+                      <td>${pedido.quantidade}</td>
+                    </tr>`
+                )
+                .join('')}
+            </table>
+          </body>
+        </html>
+      `;
+      const { uri } = await Print.printToFileAsync({ html: htmlContent });
+      await Sharing.shareAsync(uri);
+      Alert.alert('PDF Gerado', 'O arquivo foi salvo e compartilhado com sucesso.');
+    } catch (error) {
+      console.log('Erro ao gerar PDF:', error);
+      Alert.alert('Erro', 'Não foi possível gerar o PDF.');
+    }
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -137,9 +153,9 @@ export default function PedidoRecepcao({ navigation }) {
           <Text style={styles.botaoTexto}>Voltar</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.botaoFinalizar}
-          onPress={gerarPDF}>
-          <Text style={styles.botaoTexto}>Finalizar</Text>
+        style={styles.botaoFinalizar}
+        onPress={gerarPDF}>
+        <Text style={styles.botaoTexto}>Finalizar</Text>
         </TouchableOpacity>
       </View>
     </View>
