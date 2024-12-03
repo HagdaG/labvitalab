@@ -1,21 +1,15 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBFL3GoKD32DA8tbpU9rIcMAn50EKenN0k",
-  authDomain: "labvitalab-e2ca9.firebaseapp.com",
-  projectId: "labvitalab-e2ca9",
-  storageBucket: "labvitalab-e2ca9.firebasestorage.app",
-  messagingSenderId: "851697069724",
-  appId: "1:851697069724:web:42d2325bb3f55b65174759",
-  measurementId: "G-PY2DQME9QX"
+  apiKey: "AIzaSyBJO4rABA4HvXbukk7_s4cFcYaa0LY_rPM",
+  authDomain: "vitalab-d291b.firebaseapp.com",
+  projectId: "vitalab-d291b",
+  storageBucket: "vitalab-d291b.firebasestorage.app",
+  messagingSenderId: "596147641014",
+  appId: "1:596147641014:web:779819c75cb7690503e417",
+  measurementId: "G-LN575JBJK6"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);

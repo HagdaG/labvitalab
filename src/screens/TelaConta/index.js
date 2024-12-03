@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { firebase } from '../../services/firebaseConfig'
+import  firebase  from '../../services/firebaseConfig'
 import { getDatabase, onValue, ref } from "firebase/database";
 import { getAuth, signOut } from "firebase/auth";
 const db = getDatabase();
@@ -8,8 +8,8 @@ const auth = getAuth();
 import styles from './style'
 
 export default function Account({ navigation }) {
-    const [nome, setNome] = useState("")
-    const [email, setEmail] = useState("")
+    const [nome, setNome] = useState([])
+    const [email, setEmail] = useState([])
 
     const recuperarDados = () => {
         onValue(ref(db, 'users/' + auth.currentUser.uid), (snapshot) => {

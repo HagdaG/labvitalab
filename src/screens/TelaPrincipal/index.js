@@ -1,39 +1,36 @@
-import { View, Text, TouchableOpacity, FlatList } from 'react-native'
-import styles from './style'
-import React, { useEffect, useState } from 'react'
-import { firebase } from '../../services/firebaseConfig'
-import { getDatabase, onValue, query, ref, orderByChild } from "firebase/database";
-import { getAuth } from "firebase/auth";
-const db = getDatabase();
-const auth = getAuth();
+import { View, Text, TouchableOpacity } from 'react-native';
+import styles from './style';
+import React from 'react';
 
 export default function TelaPrincipal({ navigation }) {
-    const [principal, setPrincipal] = useState([]);
-
-    useEffect(() => {
-        const listaVendas = query(ref(db, 'principal/' + auth.currentUser.uid), orderByChild('status'));
-        onValue(listaVendas, (snapshot) => {
-            const lista = []
-            snapshot.forEach((data) => {
-                lista.push({ ...data.val(), id: data.key });
-            });
-            setPrincipal(lista)
-        });
-    }, [])
-
     return (
         <View style={styles.container}>
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                data={principal}
-                renderItem={({ item }) =>
-                    <TouchableOpacity style={styles.principal} onPress={() => navigation.navigate('', { id: item.id })} >
-                        <View style={styles.box}>
-                        </View>
-                    </TouchableOpacity>
-                }
-            />
+            <Text style={styles.title}>Setores Vitalab</Text>
+
+            <TouchableOpacity 
+                style={styles.button} 
+                onPress={() => navigation.navigate('Recepcao')}>
+                <Text style={styles.buttonText}>Recepção</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+                style={styles.button} 
+                onPress={() => navigation.navigate('Vacina')}>
+                <Text style={styles.buttonText}>Vacina</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+                style={styles.button} 
+                onPress={() => navigation.navigate('Serviços Gerais')}>
+                <Text style={styles.buttonText}>Serviços gerais</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+                style={styles.button} 
+                onPress={() => navigation.navigate('Exames')}>
+                <Text style={styles.buttonText}>Exames</Text>
+            </TouchableOpacity>
 
         </View>
-    )
+    );
 }
